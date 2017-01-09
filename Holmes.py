@@ -56,23 +56,30 @@ class MyFrame(wx.Frame):
 
 #Define OnEnter click event
     def OnEnter(self, event):
-        while work:
-            input = raw_input("Q:")
-            input = input.lower()
-            for char in input:
-                if char == 'more':
-                    engine.say(wikipedia.summary(input, sentences = 1))
-                    engine.runAndWait()
-                if char == 'hi' or 'hello':
-                    engine.say("Hello")
-                    engine.say("dear!")
-                    engine.runAndWait()
-		if char == 'who' or char == 'what':
-		    input = input.split(' ')
-		    input = " ".join(input[2:])
-                else:
-                    engine.say(wikipedia.summary(input, sentences = 1))
-            	    engine.runAndWait()
+        input = self.txt.GetValue()
+        input = input.lower()
+        for char in input:
+             if char == 'more':
+		 engine.runAndWait()
+                 engine.say(wikipedia.summary(input))
+		 break
+             if char == 'hi' or 'hello':
+		 engine.runAndWait()
+                 engine.say("Hello")
+                 engine.say("dear!")
+		 break
+
+	     if char == 'who' or char == 'what':
+		 engine.runAndWait()
+		 input = input.split(' ')
+		 input = " ".join(input[2:])
+		 engine.say(wikipedia.summary(input, sentences = 2))
+                 break
+             else:
+		 engine.runAndWait()
+                 engine.say(wikipedia.summary(input, sentences = 2))
+                 break
+	self.txt.Clear()
 
 #Main
 if __name__ == "__main__":
