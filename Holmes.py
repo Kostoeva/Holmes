@@ -9,28 +9,28 @@
 #sudo pip install wikipedia
 
 #IF MEMORYERROR = run as sudo pip --no-cache-dir install SpeechRecognition
+'''
+Holmes: The Know-It-All Encyclopedia who will assist you
+        in your search for knowledge.
 
+Copyright (c) 2017 Revekka Kostoeva
+
+'''
+#Imports
 import wx
 import wikipedia
 import pyttsx
 import pyaudio
 
-#Define engine for speech
+#Define engine for speech, set properties (rate, accent)
 engine = pyttsx.init()
 engine.setProperty('rate', 120)
-
-#voices = engine.getProperty('voices')
-#for voice in voices:
-    #print "Using voice: ", voice.id
 engine.setProperty('voice', "en-scottish")
-engine.say("Sherlock Holmes was a detective created by Newt Scamander")
 
+#Define boolean variable
+work = True
 
-
-engine.say("I'm a little teapot; the big brown fox jumped over the lazy dog")
-#engine.runAndWait()
-
-
+#Create frame (GUI)
 class MyFrame(wx.Frame):
     def __init__(self):
         #GUI
@@ -39,10 +39,10 @@ class MyFrame(wx.Frame):
             size = wx.Size(450, 100),
             style = wx.MINIMIZE_BOX | wx.SYSTEM_MENU | wx.CAPTION | wx.CLOSE_BOX
             | wx.CLIP_CHILDREN,
-            title = "J.A.R.V.I.S.")
+            title = "Holmes")
         panel = wx.Panel(self)
         my_sizer = wx.BoxSizer(wx.VERTICAL)
-        lbl = wx.StaticText(panel, label = "Hello. How may I assist you today?")
+        lbl = wx.StaticText(panel, label = "Hello. How may my superior mind assist you today?")
         my_sizer.Add(lbl, 0, wx.ALL, 5)
         self.txt = wx.TextCtrl(panel, style=wx.TE_PROCESS_ENTER, size=(400,30))
         self.txt.SetFocus()
@@ -51,33 +51,27 @@ class MyFrame(wx.Frame):
         my_sizer.Add(self.txt, 0, wx.ALL, 5)
         panel.SetSizer(my_sizer)
         self.Show()
-        engine.say("Hello.")#" How may I assist you today?")
+        engine.say("Hello. How may my superior mind assist you today?")#" How may I assist you today?")
         engine.runAndWait()
 
-
+#Define OnEnter click event
     def OnEnter(self, event):
-        input = self.txt.GetValue()
-        input = input.lower()
+        while work:
+            input = self.txt.GetValue()
+            input = input.lower()
+            for char in input:
+                if char == 'more':
+                    engine.say(wikipedia.summary(input, sentences = 1))
+                    #engine.runAndWait()
+                if char == 'hi' or 'hello':
+                    engine.say("Hello)
+                    engine.say("dear!")
+                    #engine.runAndWait()
+                else:
+                    engine.say(wikipedia.summary(input, sentences = 2))
+            engine.runAndWait()
 
-        for char in input:
-            #need space between each char for it to work: 2 + 2 not 2+2
-            if char == 'more':
-
-
-                engine.say(wikipedia.summary(input))
-                engine.runAndWait()
-
-            else:
-
-
-                engine.say(wikipedia.summary(input, sentences = 3))
-                engine.runAndWait()
-
-
-
-
-
-
+#Main
 if __name__ == "__main__":
     app = wx.App(True)
     frame = MyFrame()
