@@ -68,7 +68,6 @@ class MyFrame(wx.Frame):
                  engine.say("Hello")
                  engine.say("dear!")
 		 break
-
 	     if char == 'who' or char == 'what':
 		 engine.runAndWait()
 		 input = input.split(' ')
