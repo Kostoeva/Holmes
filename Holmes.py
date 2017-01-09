@@ -8,22 +8,26 @@
 #sudo pip install pyttsx
 #sudo pip install wikipedia
 
-#IF MEMORYERROR = run as sudo pip --no-chache-dir install SpeechRecognition
+#IF MEMORYERROR = run as sudo pip --no-cache-dir install SpeechRecognition
 
 import wx
 import wikipedia
 import pyttsx
 import pyaudio
 
+#Define engine for speech
+engine = pyttsx.init()
+engine.setProperty('rate', 120)
+
 #voices = engine.getProperty('voices')
 #for voice in voices:
-#    print "Using voice: ", repr(voice)
-#    engine.setProperty('voice', voices[2].id)
-    #engine.say("I'm a little teapot; the big brown fox jumped over the lazy dog")
+    #print "Using voice: ", voice.id
+engine.setProperty('voice', "en-scottish")
+engine.say("Sherlock Holmes was a detective created by Newt Scamander")
 
-engine = pyttsx.init()
-engine.setProperty('rate', 65)
-#engine.say("I'm a little teapot; the big brown fox jumped over the lazy dog")
+
+
+engine.say("I'm a little teapot; the big brown fox jumped over the lazy dog")
 #engine.runAndWait()
 
 
@@ -58,14 +62,16 @@ class MyFrame(wx.Frame):
         for char in input:
             #need space between each char for it to work: 2 + 2 not 2+2
             if char == 'more':
-                engine.runAndWait()
+
 
                 engine.say(wikipedia.summary(input))
-
-            else:
                 engine.runAndWait()
 
+            else:
+
+
                 engine.say(wikipedia.summary(input, sentences = 3))
+                engine.runAndWait()
 
 
 
