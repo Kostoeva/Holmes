@@ -51,25 +51,28 @@ class MyFrame(wx.Frame):
         my_sizer.Add(self.txt, 0, wx.ALL, 5)
         panel.SetSizer(my_sizer)
         self.Show()
-        engine.say("Hello. How may my superior mind assist you today?")#" How may I assist you today?")
+        engine.say("Hello. How may my superior mind assist you today?")
         engine.runAndWait()
 
 #Define OnEnter click event
     def OnEnter(self, event):
         while work:
-            input = self.txt.GetValue()
+            input = raw_input("Q:")
             input = input.lower()
             for char in input:
                 if char == 'more':
                     engine.say(wikipedia.summary(input, sentences = 1))
-                    #engine.runAndWait()
+                    engine.runAndWait()
                 if char == 'hi' or 'hello':
-                    engine.say("Hello)
+                    engine.say("Hello")
                     engine.say("dear!")
-                    #engine.runAndWait()
+                    engine.runAndWait()
+		if char == 'who' or char == 'what':
+		    input = input.split(' ')
+		    input = " ".join(input[2:])
                 else:
-                    engine.say(wikipedia.summary(input, sentences = 2))
-            engine.runAndWait()
+                    engine.say(wikipedia.summary(input, sentences = 1))
+            	    engine.runAndWait()
 
 #Main
 if __name__ == "__main__":
