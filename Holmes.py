@@ -22,6 +22,7 @@ import wikipedia
 import pyttsx
 import pyaudio
 import feedparser
+import random
 
 #Define engine for speech, set properties (rate, accent)
 engine = pyttsx.init()
@@ -91,7 +92,7 @@ class MyFrame(wx.Frame):
         self.txt.Clear()
 
     	engine = pyttsx.init()
-    	engine.setProperty('rate', 115)
+    	engine.setProperty('rate', 120)
     	engine.setProperty('voice', "en-scottish")
 
         if self.beginning == True:
@@ -99,8 +100,37 @@ class MyFrame(wx.Frame):
             self.beginning = False
 
     	#Define engine for speech, set properties (rate, accent)
+        if input == '':
+            phrases = ["You look marvelous today", "Ahh, to be friends with a mind as superior as my own",
+            "That was a curios incident", "They were the footprints of a gigantic hound!",
+            "I make a point of never having any prejudices, and of following docilely where fact may lead me",
+            "It is a capital mistake to theorize in advance of the facts. Insensibly one begins to twist facts to suit theories instead of theories to suit facts",
+            "It is my business to know what other people do not know",
+            "Scotland Yard feels lonely without me, and it causes an unhealthy excitement among the criminal classes",
+            "No man lives or has ever lived who has brought the same amount of study and of natural talent to the detection of crime which I have done",
+            "Never trust to general impressions, my boy, but concentrate yourself upon details",
+            "The chief proof of man's real greatness lies in his perception of his own smallness",
+            "There is nothing more stimulating than a case where everything  goes against you",
+            ]
+            engine.say(random.choice(phrases))
+            return
+        if "i am bored" in input or "suprise me" in input:
+            phrases = ["When you have eliminated the impossible, whatever remains, however improbably, must be the truth",
+            "There is no one who knows the higher criminal world of London so well as I do",
+            "Boredom is only a state of mind and it is not permanent",
+            "The world is full of obvious things which nobody by any chance ever observes",
+            "I trust that age doth not wither nor custom stale my infinite variety",
+            "The work is its own reward",
+            "Mediocrity knows nothing higher than itself; but talent instantly recognizes genius",
+            "Where there is no imagination there is no horror",
+            "The game is afoot",
+            "You say that we go round the sun. If we went round the moon it would not make a pennyworth of difference to me or to my work",
+            ]
+            engine.say(random.choice(phrases))
+            return
         if "hi" in input or "hello" in input:
-            engine.say("Hello, dear, I was starting to get bored")
+            engine.say("Hello, dear")
+            return
         elif "news" in input or "headlines" in input or "headline" in input:
             for key, url in newsurls.items():
                 self.allHeadlines.extend(getHeadlines(url))
