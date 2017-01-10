@@ -70,8 +70,11 @@ class MyFrame(wx.Frame):
                  engine.say("Hello")
                  engine.say("dear!")
 		 break
-	     elif "print" in input:
+	     elif "print" in input and "more" in input:
 		 print wikipedia.summary(input)
+		 break
+	     elif "print" in input:
+		 print wikipedia.summary(input, sentences = 2)
 		 break
              elif "more" in input:
 		 engine = pyttsx.init()
