@@ -21,11 +21,34 @@ import wx
 import wikipedia
 import pyttsx
 import pyaudio
+import feedparser
 
 #Define engine for speech, set properties (rate, accent)
 engine = pyttsx.init()
-engine.setProperty('rate', 120)
+engine.setProperty('rate', 115)
 engine.setProperty('voice', "en-scottish")
+
+#List of RSS feeds for news sources
+newsurls = {
+    'googlenews': 'http://news.google.com/?output=rss',
+    'cnn': 'http://rss.cnn.com/rss/cnn_topstories.rss',
+    'wired': 'https://www.wired.com/feed/',
+    'scientific american': 'http://rss.sciam.com/sciam/biology'
+}
+
+#Fetch rss feed and return parsed RSS
+def parseRSS(rss_url):
+    return feedparser.parse(rss_url)
+
+    #Fetch RSS feed headlines (titles), return them as String
+def getHeadlines(rss_url):
+    headlines = []
+
+    feed = parseRSS(rss_url)
+    for newsitem in feed['items']:
+        headlines.append(newsitem['title'])
+
+    return headlines
 
 #Create frame (GUI)
 class MyFrame(wx.Frame):
@@ -54,10 +77,15 @@ class MyFrame(wx.Frame):
         #Define boolean variable
         self.beginning = True
 
+        #List to hold all headlines
+        self.allHeadlines = []
+
 
 #Define function to invoke when the engine event fires
     def fire(word):
 	print(word)
+
+
 
 #Define OnEnter click event
     def OnEnter(self, event):
@@ -77,6 +105,11 @@ class MyFrame(wx.Frame):
     	#Define engine for speech, set properties (rate, accent)
         if "hi" in input or "hello" in input:
             engine.say("Hello, dear")
+        elif "news" in input or "headlines" in input or "headline" in input:
+            for key, url in newsurls.items():
+                self.allHeadlines.extend(getHeadlines(url))
+            for headline in self.allHeadlines:
+                engine.say(headline)
         elif ("print" in input) and ("more" in input):
     	    input =input.replace("print", "")
     	    input =input.replace("more", "")
