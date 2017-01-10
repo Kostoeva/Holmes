@@ -53,70 +53,65 @@ class MyFrame(wx.Frame):
         self.Show()
         engine.say("Hello. How may my superior mind assist you today?")
         engine.runAndWait()
+	
+
+#Define function to invoke when the engine event fires
+    def fire(word):
+	print(word)
 
 #Define OnEnter click event
     def OnEnter(self, event):
         input = self.txt.GetValue()
         input = input.lower()
 
+	engine = pyttsx.init()
+	engine.setProperty('rate', 120)
+	engine.setProperty('voice', "en-scottish")
+
 	#Define engine for speech, set properties (rate, accent)
         for char in input:
              if "hi" in input or "hello" in input:
-		 engine = pyttsx.init()
-		 engine.setProperty('rate', 120)
-		 engine.setProperty('voice', "en-scottish")
-		 engine.runAndWait()
-		 #engine.runAndWait()
                  engine.say("Hello")
                  engine.say("dear!")
+		 engine.runAndWait()
 		 break
 	     elif "print" in input and "more" in input:
+		 input.replace("print", "")
+		 input.replace("more", "")
 		 print wikipedia.summary(input)
 		 break
 	     elif "print" in input:
+		 input.replace("print", "")
 		 print wikipedia.summary(input, sentences = 2)
 		 break
              elif "more" in input:
-		 engine = pyttsx.init()
-		 engine.setProperty('rate', 120)
-		 engine.setProperty('voice', "en-scottish")
-		 engine.runAndWait()
-		 #engine.runAndWait()
+		 input.replace("more", "")
                  engine.say(wikipedia.summary(input))
+		 engine.runAndWait()
 		 break
-	     elif "who" in input or "what" in input and "more" in input and "print" in input:
+	     elif ("who" in input or "what" in input) and ("more" in input) and ("print" in input):
+		 input.replace("print", "")
+		 input.replace("more", "")
 		 print wikipedia.summary(input)
                  break
-	     elif "who" in input or "what" in input and "more" in input:
-		 engine = pyttsx.init()
-		 engine.setProperty('rate', 120)
-		 engine.setProperty('voice', "en-scottish")
-		 engine.runAndWait()
-		 #engine.runAndWait()
+	     elif ("who" in input or "what" in input) and ("more" in input):
 		 input = input.split(' ')
 		 input = " ".join(input[2:])
+		 input.replace("more", "")
 		 engine.say(wikipedia.summary(input))
                  break
-	     elif "who" in input or "what" in input and "print" in input:
+	     elif ("who" in input or "what" in input) and ("print" in input):
+		 input.replace("print", "")
 		 print wikipedia.summary(input, sentences = 2)
                  break
 	     elif "who" in input or "what" in input:
-		 engine = pyttsx.init()
-		 engine.setProperty('rate', 120)
-		 engine.setProperty('voice', "en-scottish")
-		 engine.runAndWait()
-		 #engine.runAndWait()
 		 input = input.split(' ')
 		 input = " ".join(input[2:])
 		 engine.say(wikipedia.summary(input, sentences = 2))
                  break
              else:
-		 engine = pyttsx.init()
-		 engine.setProperty('rate', 120)
-		 engine.setProperty('voice', "en-scottish")
-		 engine.runAndWait()
-		 #engine.runAndWait()
                  engine.say(wikipedia.summary(input, sentences = 2))
+		 engine.runAndWait()
                  break
 	self.txt.Clear()
 	
