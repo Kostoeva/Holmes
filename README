@@ -1,0 +1,20 @@
+Instructions for Use:
+
+Download .zip and extract only the Holmes Exe folder.
+
+To run the program, double click Holmes.exe in Holmes Exe/dist/
+
+Have fun!
+
+Features:
+1) Encyclopedia
+   Enter your phrase = Holmes will give a 2 sentence summary on the topic.
+   Enter your phrase + "more" = Holmes will give an expanded summary on the topic.
+   Enter your phrase + "print" = Holmes will write a 2 sentence summary on the topic.
+   "more" and "print" can be used together.
+2) News Feed
+   Enter "news" or "headlines" or "headline" to hear the latest news story titles from several websites, covering politics, techonolgy, and science news.
+3) Bored?
+   Enter "hi" or "hello"
+   Enter "suprise me" or "I am bored" to hear more from Holmes
+   Or simply hit Enter on your keyboard!
