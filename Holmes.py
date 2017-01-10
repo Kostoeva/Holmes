@@ -58,27 +58,65 @@ class MyFrame(wx.Frame):
     def OnEnter(self, event):
         input = self.txt.GetValue()
         input = input.lower()
+
+	#Define engine for speech, set properties (rate, accent)
         for char in input:
-             if char == 'more':
+             if "hi" in input or "hello" in input:
+		 engine = pyttsx.init()
+		 engine.setProperty('rate', 120)
+		 engine.setProperty('voice', "en-scottish")
 		 engine.runAndWait()
-                 engine.say(wikipedia.summary(input))
-		 break
-             if char == 'hi' or 'hello':
-		 engine.runAndWait()
+		 #engine.runAndWait()
                  engine.say("Hello")
                  engine.say("dear!")
 		 break
-	     if char == 'who' or char == 'what':
+	     elif "print" in input:
+		 print wikipedia.summary(input)
+		 break
+             elif "more" in input:
+		 engine = pyttsx.init()
+		 engine.setProperty('rate', 120)
+		 engine.setProperty('voice', "en-scottish")
 		 engine.runAndWait()
+		 #engine.runAndWait()
+                 engine.say(wikipedia.summary(input))
+		 break
+	     elif "who" in input or "what" in input and "more" in input and "print" in input:
+		 print wikipedia.summary(input)
+                 break
+	     elif "who" in input or "what" in input and "more" in input:
+		 engine = pyttsx.init()
+		 engine.setProperty('rate', 120)
+		 engine.setProperty('voice', "en-scottish")
+		 engine.runAndWait()
+		 #engine.runAndWait()
+		 input = input.split(' ')
+		 input = " ".join(input[2:])
+		 engine.say(wikipedia.summary(input))
+                 break
+	     elif "who" in input or "what" in input and "print" in input:
+		 print wikipedia.summary(input, sentences = 2)
+                 break
+	     elif "who" in input or "what" in input:
+		 engine = pyttsx.init()
+		 engine.setProperty('rate', 120)
+		 engine.setProperty('voice', "en-scottish")
+		 engine.runAndWait()
+		 #engine.runAndWait()
 		 input = input.split(' ')
 		 input = " ".join(input[2:])
 		 engine.say(wikipedia.summary(input, sentences = 2))
                  break
              else:
+		 engine = pyttsx.init()
+		 engine.setProperty('rate', 120)
+		 engine.setProperty('voice', "en-scottish")
 		 engine.runAndWait()
+		 #engine.runAndWait()
                  engine.say(wikipedia.summary(input, sentences = 2))
                  break
 	self.txt.Clear()
+	
 
 #Main
 if __name__ == "__main__":
