@@ -53,7 +53,7 @@ def getHeadlines(rss_url):
 #Create frame (GUI)
 class MyFrame(wx.Frame):
     def __init__(self):
-        #GUI
+        #GUI Constructor
         wx.Frame.__init__(self, None,
             pos=wx.DefaultPosition,
             size = wx.Size(450, 100),
@@ -66,7 +66,6 @@ class MyFrame(wx.Frame):
         my_sizer.Add(lbl, 0, wx.ALL, 5)
         self.txt = wx.TextCtrl(panel, style=wx.TE_PROCESS_ENTER, size=(400,30))
         self.txt.SetFocus()
-
         self.txt.Bind(wx.EVT_TEXT_ENTER, self.OnEnter)
         my_sizer.Add(self.txt, 0, wx.ALL, 5)
         panel.SetSizer(my_sizer)
@@ -80,12 +79,9 @@ class MyFrame(wx.Frame):
         #List to hold all headlines
         self.allHeadlines = []
 
-
 #Define function to invoke when the engine event fires
     def fire(word):
 	print(word)
-
-
 
 #Define OnEnter click event
     def OnEnter(self, event):
@@ -104,7 +100,7 @@ class MyFrame(wx.Frame):
 
     	#Define engine for speech, set properties (rate, accent)
         if "hi" in input or "hello" in input:
-            engine.say("Hello, dear")
+            engine.say("Hello, dear, I was starting to get bored")
         elif "news" in input or "headlines" in input or "headline" in input:
             for key, url in newsurls.items():
                 self.allHeadlines.extend(getHeadlines(url))
